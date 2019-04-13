@@ -1,0 +1,25 @@
+---
+stack:
+  name: Greeter
+  repository: https://github.com/nicbet/greeter
+  branch: master
+  environment: local
+
+tasks:
+  hello:
+    action: "Say Hello"
+    description: "Just an example"
+    steps:
+      - export WHAT=hello
+      - echo $WHAT world
+build:
+  pre:
+    - echo "Building Docker image"
+  post:
+    - echo "Done building!"
+  steps:
+    - docker build -t nicbet/greeter .
+deploy:
+  pre: []
+  post: []
+  steps: []
