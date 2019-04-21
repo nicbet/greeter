@@ -18,7 +18,7 @@ build:
   post:
     - echo "Done building!"
   steps:
-    - docker build -t nicbet/greeter .
+    - docker build -t ${OWNER}/${NAME}:${SHA} .
 deploy:
   pre: []
   post: []
