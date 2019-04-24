@@ -20,6 +20,9 @@ build:
   steps:
     - docker build -t ${OWNER}/${NAME}:${SHA} .
 deploy:
-  pre: []
-  post: []
-  steps: []
+  pre:
+    - echo "Deploying ${OWNER}/${NAME}:${SHA} to ${ENVIRONMENT}"
+  post:
+    - echo "Done deploying ${OWNER}/${NAME}:${SHA} to ${ENVIRONMENT}"
+  steps:
+    - echo "hoist apply -c deployment/${ENVIRONMENT}.yml deployment/template"
