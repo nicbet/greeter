@@ -1,2 +1,3 @@
 # Greeter
-A tiny web service in Go that says "Hello World"
+
+A tiny web service in Go that says "Hello World".
