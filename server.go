@@ -7,7 +7,10 @@ import (
 )
 
 func main() {
+  // New echo server
 	e := echo.New()
+
+  // Define root path action
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, y'all!")
 	})
