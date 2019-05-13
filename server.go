@@ -12,7 +12,7 @@ func main() {
 
   // Define root path action
 	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, y'all!")
+		return c.String(http.StatusOK, "Hello, Louis!")
 	})
 	e.Logger.Fatal(e.Start(":8000"))
 }
