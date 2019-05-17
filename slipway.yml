@@ -25,4 +25,6 @@ deploy:
   post:
     - echo "Done deploying ${OWNER}/${NAME}:${SHA} to ${ENVIRONMENT}"
   steps:
-    - echo "hoist apply -c deployment/${ENVIRONMENT}.yml deployment/template"
+    - docker stop greeter
+    - docker rm greeter
+    - docker run --name=greeter -p 8000:8000 -d ${OWNER}/${NAME}:${SHA}
