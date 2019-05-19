@@ -1,0 +1,30 @@
+---
+stack:
+  name: Greeter
+  repository: https://github.com/nicbet/greeter
+  branch: master
+  environment: localhost
+
+tasks:
+  hello:
+    action: "Say Hello World"
+    description: "Just an example"
+    steps:
+      - export WHAT=Hello
+      - echo $WHAT World
+build:
+  pre:
+    - echo "Building Docker image"
+  post:
+    - echo "Done building!"
+  steps:
+    - docker build -t ${OWNER}/${NAME}:${SHA} .
+deploy:
+  pre:
+    - echo "Deploying ${OWNER}/${NAME}:${SHA} to ${ENVIRONMENT}"
+  post:
+    - echo "Done deploying ${OWNER}/${NAME}:${SHA} to ${ENVIRONMENT}"
+  steps:
+    - docker stop greeter || true
+    - docker rm greeter || true
+    - docker run --name=greeter -p 8000:8000 -d ${OWNER}/${NAME}:${SHA}

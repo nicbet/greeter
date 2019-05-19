@@ -3,7 +3,7 @@ stack:
   name: Greeter
   repository: https://github.com/nicbet/greeter
   branch: master
-  environment: local
+  environment: production
 
 tasks:
   hello:
@@ -14,17 +14,11 @@ tasks:
       - echo $WHAT world
 build:
   pre:
-    - echo "Building Docker image"
+    - docker version
   post:
-    - echo "Done building!"
+    - docker image inspect ${OWNER}/${NAME}:${SHA}
   steps:
     - docker build -t ${OWNER}/${NAME}:${SHA} .
 deploy:
-  pre:
-    - echo "Deploying ${OWNER}/${NAME}:${SHA} to ${ENVIRONMENT}"
-  post:
-    - echo "Done deploying ${OWNER}/${NAME}:${SHA} to ${ENVIRONMENT}"
   steps:
-    - docker stop greeter || true
-    - docker rm greeter || true
-    - docker run --name=greeter -p 8000:8000 -d ${OWNER}/${NAME}:${SHA}
+    - docker push ${OWNER}/${NAME}:${SHA}
